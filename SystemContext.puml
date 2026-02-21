@@ -1,0 +1,42 @@
+@startuml C4_Elements
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+/'
+    C4 context diagram guide
+
+    Person(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    Person_Ext(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    System(alias, label, ?descr, ?sprite, ?tags, ?link, ?type, ?baseShape)
+    SystemDb(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    SystemQueue(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    System_Ext(alias, label, ?descr, ?sprite, ?tags, ?link, ?type, ?baseShape)
+    SystemDb_Ext(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    SystemQueue_Ext(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    Boundary(alias, label, ?type, ?tags, ?link, ?descr)
+    Enterprise_Boundary(alias, label, ?tags, ?link, ?descr)
+    System_Boundary(alias, label, ?tags, ?link, ?descr)
+'/
+
+Person_Ext("pe_customer", "Customer", "A customer of BankOne")
+
+System_Boundary("BankOne", "BankOne") {
+    /'people: Customers, Frontline staff, internal operations'/
+    /'Systems: Identify, Payments, Risk, Notifications, Online Banking
+        core banking system, customer management system, email system, payments system
+    '/
+    Person("p_staff", "Frontline Staff", "A frontline staff member of BankOne")
+    Person("p_operations", "Internal Operations", "An internal operations employee of BankOne")
+    System("sys_core_banking", "Core Banking System", "Allows standard banking operations to be performed")
+    System("sys_customer_management", "Customer Management System", "Allows BankOne to manage customer information")
+    System("sys_email", "Email System", "Allows BankOne to send emails to customers")
+    System("sys_identity", "Identity System", "Allows BankOne to identify customers")
+    System("sys_payments", "Payments System", "Allows BankOne to process payments")
+    System("sys_risk", "Risk System", "Allows BankOne to assess risk")
+    System("sys_notifications", "Notifications System", "Allows BankOne to send notifications to customers")
+    System("sys_online_banking", "Online Banking System", "Allows customers to access their accounts online")
+}
+
+/'customer relationships'/
+Rel(pe_customer, p_staff, "Interacts with", "Call centre, in person")
+Rel(pe_customer, sys_online_banking, "Interacts with", "Online")
+
+@enduml
