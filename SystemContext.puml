@@ -16,6 +16,10 @@
     System_Boundary(alias, label, ?tags, ?link, ?descr)
 '/
 
+/'Branch Appointment Scheduling System 
+- A system for booking in-branch or virtual appointments with real-time staff availability 
+    (e.g. home loans, financial advice).'/
+
 Person_Ext("pe_customer", "Customer", "A customer of BankOne")
 
 System_Boundary("BankOne", "BankOne") {
@@ -23,20 +27,42 @@ System_Boundary("BankOne", "BankOne") {
     /'Systems: Identify, Payments, Risk, Notifications, Online Banking
         core banking system, customer management system, email system, payments system
     '/
-    Person("p_staff", "Frontline Staff", "A frontline staff member of BankOne")
-    Person("p_operations", "Internal Operations", "An internal operations employee of BankOne")
+    Person("p_staff", "Frontline Staff", "A call center or front counter staff member of BankOne")
+    System("sys_online_staff_portal", "Web App Staff Portal System", "Allows staff to complete work tasks related to banking services and appointments")
+    System("sys_online_banking", "Web App Banking Services System", "Allows customers to utilize online BankOne services")
+    System("sys_ass","Branch Appointment Scheduling System", "allows for the creation, cancellation, or rescheduling of appointments to see frontline staff")
     System("sys_core_banking", "Core Banking System", "Allows standard banking operations to be performed")
-    System("sys_customer_management", "Customer Management System", "Allows BankOne to manage customer information")
-    System("sys_email", "Email System", "Allows BankOne to send emails to customers")
-    System("sys_identity", "Identity System", "Allows BankOne to identify customers")
-    System("sys_payments", "Payments System", "Allows BankOne to process payments")
-    System("sys_risk", "Risk System", "Allows BankOne to assess risk")
-    System("sys_notifications", "Notifications System", "Allows BankOne to send notifications to customers")
-    System("sys_online_banking", "Online Banking System", "Allows customers to access their accounts online")
+    System("sys_customer_management", "Customer Management System", "Stores customer information including contact details, login credentials, personal information","test")
+    System("sys_staff_management", "Staff Management System", "Stores staff information including contact details, login credentials, personal information")
+    System("sys_staff_availability", "Staff Availability System", "Stores real time staff availability information for appointments")
+    System("sys_notifications", "Notifications System", "Allows BankOne to send notifications to customers and staff")
+    System("sys_hr_management", "HR Management System", "Allows BankOne to manage employee information, rosters, and payroll")
 }
 
 /'customer relationships'/
-Rel(pe_customer, p_staff, "Interacts with", "Call centre, in person")
-Rel(pe_customer, sys_online_banking, "Interacts with", "Online")
+Rel(pe_customer, sys_online_banking, "completes banking tasks with", "Web browser, mobile app")
+Rel(pe_customer, p_staff, "Completes banking tasks with", "call centre, in person")
+/'Branch appointment relationships'/
+Rel(sys_ass, sys_staff_availability, "Receives real time staff availability information from")
+Rel(sys_ass, sys_notifications, "Sends appointment notifications to customers and staff with")
+/'Web app banking services relationships'/
+Rel(sys_online_banking, sys_core_banking, "Processes transaction requests using")
+Rel(sys_online_banking, sys_ass, "Manages appointments using")
+Rel(sys_online_banking, sys_customer_management, "Authenticates identity of customer with")
+/'Staff portal relationships'/
+Rel(sys_online_staff_portal, sys_ass, "receives appointment information from")
+Rel(sys_online_staff_portal, sys_core_banking, "Processes customer requests with")
+Rel(sys_online_staff_portal, sys_staff_management, "Authenticates identity of staff member with")
+Rel(sys_online_staff_portal, sys_staff_availability, "updates staff availability in real time with")
+Rel(sys_online_staff_portal, sys_hr_management, "Tracks employee information and rosters with")
+/'notification system relationships'/
+Rel(sys_notifications, p_staff, "Sends notifications to staff members")
+Rel(sys_notifications, pe_customer, "Sends notifications to customers")
+/'hr management system relationships'/
+Rel(sys_hr_management, sys_staff_availability, "Updates staff availability information")
 
+/'Frontline staff relationships
+Rel(p_staff,"")
+'/
+Rel(p_staff,sys_online_staff_portal,"Uses staff portal to complete manage and complete work tasks")
 @enduml
