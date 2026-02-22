@@ -1,0 +1,31 @@
+@startuml C4_Elements
+/'C4 container diagram of BankOne Branch Appointment Scheduling System'/
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+/'
+    C4 context diagram guide
+
+    Person(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    Person_Ext(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    System(alias, label, ?descr, ?sprite, ?tags, ?link, ?type, ?baseShape)
+    SystemDb(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    SystemQueue(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    System_Ext(alias, label, ?descr, ?sprite, ?tags, ?link, ?type, ?baseShape)
+    SystemDb_Ext(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    SystemQueue_Ext(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
+    Boundary(alias, label, ?type, ?tags, ?link, ?descr)
+    Enterprise_Boundary(alias, label, ?tags, ?link, ?descr)
+    System_Boundary(alias, label, ?tags, ?link, ?descr)
+'/
+
+/'External systems'/
+System_Ext("sys_online_banking", "Customer Web App System", "Allows customers to utilize online BankOne services")
+System_Ext("sys_notifications", "Notifications System", "Allows BankOne to send notifications to customers and staff")
+System_Ext("sys_staff_availability", "Staff Availability System", "Stores real time staff availability information for appointments")
+System_Ext("sys_online_staff_portal", "Web App Staff Portal System", "Allows staff to complete work tasks related to banking services and appointments")
+
+System_Boundary("sys_ass", "Branch Appointment Scheduling System") {
+    /'A system for booking in-branch or virtual appointments with real-time staff availability 
+    (e.g. home loans, financial advice).'/
+
+}
