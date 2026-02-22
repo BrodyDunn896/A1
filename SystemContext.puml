@@ -31,7 +31,7 @@ System_Boundary("BankOne", "BankOne System Landscape diagram", ) {
     '/
     Person("p_staff", "Frontline Staff", "A call center or front counter staff member of BankOne")
     System("sys_online_staff_portal", "Web App Staff Portal System", "Allows staff to complete work tasks related to banking services and appointments")
-    System("sys_online_banking", "Web App Banking Services System", "Allows customers to utilize online BankOne services")
+    System("sys_online_banking", "Customer Web App System", "Allows customers to utilize online BankOne services")
     System("sys_ass","Branch Appointment Scheduling System", "allows for the creation, cancellation, or rescheduling of appointments to see frontline staff")
     System("sys_customer_management", "Customer Management System", "Stores customer information including contact details, authentication details, personal information","test")
     System("sys_staff_management", "Staff Management System", "Stores staff information including contact details, authentication details, personal information")
